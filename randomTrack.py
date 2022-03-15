@@ -1,14 +1,51 @@
-from wandering import ComunWandering
+from turtle import  distance, title
+from wandering import ComunWandering, Wandering
 from track import Track
-from location Location
-from django.utils.translation import ugettext_lazy as _
+from location import Location
 
-from bokhe.plooting import figure, output_file, show
+from bokeh.plotting import figure, output_file, show
 
 def walking(location, wandering, steps):
-    beginning = location.getLocation(wandering)
-    
+    beginning = location.get_location(wandering)
+     
     for _ in range(steps):
         location.move_wandering(wandering)
         
-    return beginnig.distence(location.get_location)
+    return beginning.distance(location.get_location(wandering))
+
+def simulate_walk(steps, number_attempts, type_wandering):
+    Wandering = type_wandering(name='Damian')
+    origen = Track(0,0)
+    distances = []
+    
+    for _ in range(number_attempts):
+        location = Location()
+        location.add_wandering(Wandering, origen)
+        simulations_walk = walking(location, Wandering, steps)
+        distances.append(round(simulations_walk, 1))
+    return distances
+
+def graph(x, y):
+    graphics = figure(title='Camino del errante', x_axis_label='Pasos', y_axis_label='Distacia')
+    graphics.line(x, y, legend_label='Distancia')
+    show(graphics)
+    
+def main(distances_walk, number_attempts, type_wandering):
+    average_walking_distance = []
+    
+    for steps in distances_walk:
+        distances = simulate_walk(steps, number_attempts, type_wandering)
+        middle_distance = round(sum(distances) / len(distances), 4)
+        max_distances = max(distances)
+        min_distances = min(distances)
+        average_walking_distance.append(middle_distance)
+        print(f'{type_wandering.__name__} Caminata aleatoria de {steps} pasos')
+        print(f'Media = {middle_distance}')
+        print(f'Max = {max_distances}')
+        print(f'Min = {min_distances}')
+    graph(distances_walk, average_walking_distance)
+    
+if __name__ == '__main__':
+    distances_walk = [10, 100, 1000, 1000]
+    number_attempts = 100
+    main(distances_walk, number_attempts, ComunWandering)
