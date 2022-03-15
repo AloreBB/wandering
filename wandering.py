@@ -23,7 +23,7 @@ class ComunWandering(Wandering):
         self.y = dy
         return[dx, dy]
     
-class Rightwandering(Wandering):
+class RightWandering(Wandering):
     
     def __init__(self, name):
         super().__init__(name)
@@ -34,7 +34,7 @@ class Rightwandering(Wandering):
         self.y = dy
         return[dx, dy]
     
-class Leftwandering(Wandering):
+class LeftWandering(Wandering):
     
     def __init__(self, name):
         super().__init__(name)
