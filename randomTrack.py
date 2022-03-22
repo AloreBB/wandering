@@ -1,5 +1,6 @@
-from turtle import  distance, title
+from turtle import  distance, title, fillcolor
 from wandering import ComunWandering, Wandering, LeftWandering, RightWandering
+import string
 from track import Track
 from location import Location
 
